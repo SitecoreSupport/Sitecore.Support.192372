@@ -97,6 +97,12 @@ namespace Sitecore.Support.Cintel.Reporting.ReportingServerDatasource.Visits
         private void FillTableWithRow(DataTable rawTable, Interaction curInteraction, int index = 1)
         {
             var webVisit = curInteraction.WebVisit();
+            #region Original code
+            if (webVisit == null)
+            {
+                return;
+            }
+            #endregion
             var ipInfo = curInteraction.IpInfo();
             var viewList = curInteraction.Events.OfType<PageViewEvent>().ToList();
             var viewsCount = viewList.Count;
@@ -106,14 +112,14 @@ namespace Sitecore.Support.Cintel.Reporting.ReportingServerDatasource.Visits
             row[XConnectFields.Interaction.ChannelId] = curInteraction.ChannelId;
             row[XConnectFields.Interaction.StartDate] = curInteraction.StartDateTime;
             row[XConnectFields.Interaction.EndDate] = curInteraction.EndDateTime;
-            row[XConnectFields.Interaction.SessionId] = Guid.Empty; //ToDo:change to xConnecct-Session Id not ready;
+            row[XConnectFields.Interaction.SessionId] = Guid.Empty;
             if (curInteraction.CampaignId.HasValue)
             {
                 row[XConnectFields.Interaction.CampaignId] = curInteraction.CampaignId;
             }
             row[XConnectFields.Interaction.ContactVisitIndex] = index;
             row[XConnectFields.Interaction.DeviceId] = curInteraction.DeviceProfile.Id;
-            row[XConnectFields.Interaction.LocationId] = Guid.Empty;//ToDo:change to xConnecct-Location Id Not available yet - wait for PI5;
+            row[XConnectFields.Interaction.LocationId] = Guid.Empty;
             row[XConnectFields.Interaction.UserAgent] = curInteraction.UserAgent;
             row[XConnectFields.Interaction.SiteName] = webVisit.SiteName;
             row[XConnectFields.Interaction.Value] = curInteraction.EngagementValue;
