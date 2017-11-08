@@ -97,7 +97,7 @@ namespace Sitecore.Support.Cintel.Reporting.ReportingServerDatasource.Visits
         private void FillTableWithRow(DataTable rawTable, Interaction curInteraction, int index = 1)
         {
             var webVisit = curInteraction.WebVisit();
-            #region Original code
+            #region Added code
             if (webVisit == null)
             {
                 return;
